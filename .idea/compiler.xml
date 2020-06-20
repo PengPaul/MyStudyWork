@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
       <module name="algorithm" target="1.7" />
+      <module name="java_performance" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
