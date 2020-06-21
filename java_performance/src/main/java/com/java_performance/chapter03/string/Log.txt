@@ -1,0 +1,101 @@
+1 字符串的优化处理
+  String 对象的3个基本特点：
+     a.不变性
+            String对象一旦生成，则不能对它进行改变。
+            String的这个特性可以泛化成不变（immutable）模式，这个对象的状态在这个对象被创建之后就不会再发生变化。
+            不变模式的主要作用在于当一个对象需要被多个线程共享，并且访问频繁是，可以省略同步和锁等待的时间，从而提高性能
+     b.针对常量池的优化
+            当两个String对象拥有相同的值时，它们只引用常量池中的同一份拷贝。当这个字符反复出现在科技大幅节省内存空间。
+     c.类的final定义
+
+  subString()方法的内存泄漏
+
+          public String substring(int var1) {
+                if (var1 < 0) {
+                    throw new StringIndexOutOfBoundsException(var1);
+                } else {
+                    int var2 = this.value.length - var1;
+                    if (var2 < 0) {
+                        throw new StringIndexOutOfBoundsException(var2);
+                    } else {
+                        return var1 == 0 ? this : new String(this.value, var1, var2);
+                    }
+                }
+            }
+            public String substring(int var1, int var2) {
+                if (var1 < 0) {
+                    throw new StringIndexOutOfBoundsException(var1);
+                } else if (var2 > this.value.length) {
+                    throw new StringIndexOutOfBoundsException(var2);
+                } else {
+                    int var3 = var2 - var1;
+                    if (var3 < 0) {
+                        throw new StringIndexOutOfBoundsException(var3);
+                    } else {
+                        return var1 == 0 && var2 == this.value.length ? this : new String(this.value, var1, var3);
+                    }
+                }
+            }
+
+           上面两个方法都返回了一个新建的String对象
+                public String(char[] var1, int var2, int var3) {
+                    if (var2 < 0) {
+                        throw new StringIndexOutOfBoundsException(var2);
+                    } else {
+                        if (var3 <= 0) {
+                            if (var3 < 0) {
+                                throw new StringIndexOutOfBoundsException(var3);
+                            }
+
+                            if (var2 <= var1.length) {
+                                this.value = "".value;
+                                return;
+                            }
+                        }
+
+                        if (var2 > var1.length - var3) {
+                            throw new StringIndexOutOfBoundsException(var2 + var3);
+                        } else {
+                            this.value = Arrays.copyOfRange(var1, var2, var2 + var3);
+                        }
+                    }
+                }
+
+                这里是一个包作用域的构造函数，其目的为了能高效且快捷的共享String内的char数组对象。
+                这种通过偏移量来截取字符串的方法，String的原生内容value数组被复制到新的子字符串中。
+                如果原始字符串很大，截取的字符串又很短，那么截取的子字符串中包含原生字符串的所有内容，并占据了相应的内存空间
+                而仅仅通过偏移量和长度觉得自己的实际取值，这种算法提高了运算速度却浪费了大量的内存空间。
+
+                String这个构造函数使用以空间换时间的策略，浪费了内存空间，却提高了字符串的生成速度。
+
+                下面的和substring存在同样的问题的方法：
+
+                public String concat(String var1);
+                public String replace(char var1, char var2);
+                public String toLowerCase();
+                public String replace(char var1, char var2);
+                public String concat(String var1);
+                public static String valueOf(char var0);
+
+  字符串分割和查找
+    public String[] split(String var1)
+    使用简单，功能强大，但是性能一般
+    优化办法1：使用StringTokenizer
+    优化2：通过indexOf()和subString() 两个方法处理
+    优化3：charAt()更高效
+
+  StringBuffer和StringBuilder
+    对于静态字符串的连接操作，java在编译时会对进行彻底的优化，将多个连接操作的字符串在编译时就合成一个单独的长字符串
+    如果在编译期无法确定字符串的取值，StringBuilder对象实现字符串的累加和String的累加的性能几乎一样。
+    但是还是建议用StringBuffer 而非String ，String在多次连接时，编辑器会自动new 一个Stringbuilder对象，增加了内存和时间消耗，影响性能。
+
+    默认容量16字节
+
+
+
+
+
+
+
+
+
