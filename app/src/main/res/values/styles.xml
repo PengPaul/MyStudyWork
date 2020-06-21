@@ -1,10 +1,20 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- 黑白屏问题-->
+
+        <!-- 方案一 设置背景-->
+        <!-- <item name="android:windowBackground">@color/colorPrimary</item> -->
+        <!-- 方案二 设置透明-->
+        <!--   <item name="android:windowIsTranslucent">true</item>-->
+        <!-- 方案三 启动会等待-->
+        <!--
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        -->
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
 </resources>
