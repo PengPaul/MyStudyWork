@@ -1,2 +1,4 @@
+include ':java_performance'
+include ':algorithm'
 include ':app'
 rootProject.name = "MyTest"
