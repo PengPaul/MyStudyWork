@@ -1,5 +1,8 @@
 package peng.algorithm.chapter03.tree;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+
 public class Tree {
     /**
      *
@@ -30,5 +33,40 @@ public class Tree {
      *
      *  可以用数组存储也可以用链式存储
      *
+     *
+     *           3
+     *       2       8
+     *     9  10  null   4
      */
+
+    public static void main(String[] args) {
+        LinkedList<Integer> linkedList = new LinkedList<>(Arrays.asList(new Integer[]{
+                3,2,9,null,null,10,null,null,8,null,4
+        }));
+        TreeUse.TreeNode node = TreeUse.createBinaryTree(linkedList);
+        System.out.println("前序遍历：");
+        TreeUse.preOrderTraveral(node);
+        System.out.println("");
+        System.out.println("中序遍历：");
+        TreeUse.midOrderTraveral(node);
+        System.out.println("");
+        System.out.println("后序遍历：");
+        TreeUse.postOrderTraveral(node);
+
+        System.out.println("");
+        System.out.println("前序遍历：");
+        TreeUse.preOrderTraveralWithStack(node);
+
+        System.out.println("");
+        System.out.println("中序遍历：");
+        TreeUse.midOrderTraveralWithStack(node);
+
+        System.out.println("");
+        System.out.println("后序遍历：");
+        TreeUse.postOrderTraveralWithStack(node);
+
+        System.out.println("");
+        System.out.println("广度优先：");
+        TreeUse.levelOrderTraveralsal(node);
+    }
 }
