@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.7">
       <module name="algorithm" target="1.7" />
       <module name="java_performance" target="1.7" />
+      <module name="MyTest.app" target="1.8" />
+      <module name="MyTest.mylibrary" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
